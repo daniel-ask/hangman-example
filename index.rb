@@ -1,4 +1,4 @@
-require_relative 'lib/game_class'
+require_relative 'lib/hangman_class'
 
-hangman = Game.new
-hangman.run
+hangman = HangMan.new
+hangman.run_app
