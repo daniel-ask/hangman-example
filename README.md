@@ -5,24 +5,27 @@ Terminal hang man game.
 # Install 
 
 1. cd into hangman-example
-2. run `bundle install`
+2. run `./installation.sh`
 # Dependencies
 
+- ruby v2.7.2
 - faker gem
-
 # Usage
 
 To run the app
 
-`ruby index.rb`
+`./hangman.sh`
 
-Command line arguments available
+## Command line arguments available
 
-`ruby index.rb --help`
+### --help
+`./hangman.sh --help`
 Displays helpful information about the app.
 
-`ruby index.rb -s <category>`
+### -s --start
+
+`./hangman.sh -s <category>`
 replace category with movie, game or programming to jump into a game with that category.
 e.g.
 
-`ruby index.rb -s movie`
+`./hangman.sh -s movie`
