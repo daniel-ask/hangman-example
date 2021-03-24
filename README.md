@@ -25,6 +25,7 @@ Displays helpful information about the app.
 ### -s --start
 
 `./hangman.sh -s <category>`
+
 replace category with movie, game or programming to jump into a game with that category.
 e.g.
 
