@@ -1,76 +1,69 @@
 require 'faker'
-require 'json'
 require_relative 'game_class'
 
-class HangMan
-
-  def initialize
-    @data = JSON.parse(File.read('./data/game_score.json'))
-    @data['Daniel'] = 1
-    p @data
-    File.write('./data/game_score.json', JSON.dump(@data))
-  end
-
+class Hangman
   def run_app
     loop do
-      display_title
+      display_welcome
       display_menu
-      process_menu_selection(user_menu_input)
+      process_input(menu_input)
     end
   end
 
-  def display_title
-    puts 'WELCOME TO HANGMAN'
-  end
+ def display_welcome
+  puts '-' * 20
+  puts 'WELCOME TO HANGMAN'
+  puts '-' * 20
+ end
 
-  def display_menu
-    puts '1. Start game'
-    puts '2. End game'
-  end
+ def display_menu
+  puts '1.  Play game'
+  puts '2.  Exit'
+ end
 
-  def user_menu_input
-    gets.to_i
-  end
+ def display_categories
+  puts 'Choose your category:'
+  puts "\t1. Movie"
+  puts "\t2. Game"
+  puts "\t3. Programming Language"
+ end
 
-  def start_game(word)
-    game = Game.new(word)
-    game.run
-  end
+ def menu_input
+  gets.to_i
+ end
 
-  def display_category
-    puts 'Select Category:'
-    puts "\t1. Movie"
-    puts "\t2. Game"
-    puts "\t3. Programming Languages"
+ def process_input(menu_selection)
+  case menu_selection
+  when 1
+    initiate_game 
+  when 2
+    exit_game
   end
-  
-  def select_category
-    gets.to_i
-  end
+ end
 
-  def generate_word(category)
-    case category
-    when 1
-      return Faker::Movie.title 
-    when 2
-     return Faker::Game.title
-    when 3
-     return Faker::ProgrammingLanguage.name
-    end
-  end
+ def initiate_game
+  # get category selection
+  display_categories
+  menu_selection = menu_input
+  # generate word
+  word = generate_word(menu_selection)
+  # start game
+  game = Game.new(word)
+  game.run
+ end
 
-  def process_menu_selection(selection)
-    case selection
-    when 1
-      display_category
-      word = generate_word(select_category)
-      start_game(word)
-    when 2
-      puts '- Exiting -'
-      sleep 1
-      exit
-    else
-      puts 'Invalid input'
-    end
+ def generate_word(menu_selection)
+  case menu_selection
+  when 1
+    Faker::Movie.title
+  when 2
+    Faker::Game.title
+  when 3
+    Faker::ProgrammingLanguage.name
   end
+ end
+ def exit_game
+  puts 'Good Bye'
+  exit
+ end
 end
